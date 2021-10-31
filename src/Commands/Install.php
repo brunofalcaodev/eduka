@@ -83,7 +83,7 @@ final class Install extends Command
          * EDUKA_ADMIN_PASSWORD
          */
 
-        if (!env('EDUKA_ADMIN_NAME') || !env('EDUKA_ADMIN_EMAIL') || !env('EDUKA_ADMIN_PASSWORD')) {
+        if (! env('EDUKA_ADMIN_NAME') || ! env('EDUKA_ADMIN_EMAIL') || ! env('EDUKA_ADMIN_PASSWORD')) {
             $this->error('Check your ENV credentials: EDUKA_ADMIN_NAME, EDUKA_ADMIN_EMAIL and EDUKA_ADMIN_PASSWORD');
             exit();
         }

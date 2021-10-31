@@ -34,14 +34,11 @@ class EdukaServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->loadRoutes();
         $this->loadViews();
-
         $this->registerGates();
         $this->registerReferer();
         $this->registerBladeDirectives();
         $this->registerObservers();
-
-        //$this->registerPolicies();
-        //$this->publishResources();
+        $this->publishResources();
     }
 
     protected function registerContainers()
@@ -116,7 +113,7 @@ class EdukaServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../resources/overrides/' => base_path('/'),
-        ], 'eduka');
+        ], 'eduka-overrides');
     }
 
     protected function registerMacros()

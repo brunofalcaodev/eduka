@@ -3,7 +3,6 @@
 namespace Eduka\Seeders;
 
 use Eduka\Models\Country;
-use Eduka\Models\Website;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
