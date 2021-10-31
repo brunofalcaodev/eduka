@@ -1,0 +1,36 @@
+{
+    "name": "brunofalcaodev/eduka",
+    "description": "Eduka - Standalone course platform for my courses",
+    "keywords": [
+        "brunofalcaodev",
+        "eduka",
+        "laravel"
+    ],
+    "homepage": "https://github.com/brunofalcaodev/eduka",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eduka\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Eduka\\EdukaServiceProvider"
+            ]
+        }
+    }
+}

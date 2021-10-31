@@ -1,0 +1,241 @@
+1,AF,Afghanistan,0.25
+2,AL,Albania,0.39
+3,DZ,Algeria,0.25
+4,AS,"American Samoa",NULL
+5,AD,Andorra,NULL
+6,AO,Angola,0.26
+7,AI,Anguilla,NULL
+8,AG,"Antigua and Barbuda",0.63
+9,AR,Argentina,0.31
+10,AM,Armenia,0.42
+11,AW,Aruba,0.64
+12,AU,Australia,0.99
+13,AT,Austria,0.94
+14,AZ,Azerbaijan,0.24
+15,BS,Bahamas,1.01
+16,BH,Bahrain,0.51
+17,BD,Bangladesh,0.39
+18,BB,Barbados,0.96
+19,BY,Belarus,0.28
+20,BE,Belgium,0.92
+21,BZ,Belize,0.56
+22,BJ,Benin,0.36
+23,BM,Bermuda,NULL
+24,BT,Bhutan,0.31
+25,BO,Bolivia,0.49
+26,BA,"Bosnia and Herzegovina",0.40
+27,BW,Botswana,0.40
+28,BV,"Bouvet Island",NULL
+29,BR,Brazil,0.38
+30,IO,"Brit. Indian Ocean",NULL
+31,VG,"British Virgin Islands",NULL
+32,BN,"Brunei Darussalam",0.35
+33,BG,Bulgaria,0.38
+34,BF,"Burkina Faso",0.35
+35,BI,Burundi,0.42
+36,KH,Cambodia,0.35
+37,CM,Cameroon,0.38
+38,CA,Canada,0.88
+39,CV,"Cape Verde",0.46
+40,KY,"Cayman Islands",NULL
+41,CF,"Central African Republic",0.58
+42,TD,Chad,0.35
+43,CL,Chile,0.48
+44,CN,China,0.50
+45,CX,"Christmas Island",NULL
+46,CC,"Cocos Islands",NULL
+47,CO,Colombia,0.36
+48,KM,Comoros,0.49
+49,CG,Congo,0.34
+50,CK,"Cook Islands",NULL
+51,CR,"Costa Rica",0.69
+52,CI,"Cote D’Ivoire",0.38
+53,HR,Croatia,0.52
+54,CU,Cuba,NULL
+55,CW,Curaçao,NULL
+56,CY,Cyprus,0.66
+57,CZ,"Czech Republic",0.56
+58,DK,Denmark,1.10
+59,DJ,Djibouti,0.55
+60,DM,Dominica,0.70
+61,DO,"Dominican Republic",0.37
+62,EC,Ecuador,0.53
+63,EG,Egypt,0.24
+64,SV,"El Salvador",0.48
+65,GQ,"Equatorial Guinea",0.42
+66,ER,Eritrea,0.75
+67,EE,Estonia,0.65
+68,ET,Ethiopia,0.32
+69,FK,"Falkland Islands",NULL
+70,FO,"Faroe Islands",NULL
+71,FJ,Fiji,0.55
+72,FI,Finland,1.02
+73,FR,France,0.89
+74,GF,"French Guiana",NULL
+75,PF,"French Polynesia",NULL
+76,TF,"French Southern Terr.",NULL
+77,GA,Gabon,0.41
+78,GM,Gambia,0.26
+79,GE,Georgia,0.32
+80,DE,Germany,0.87
+81,GH,Ghana,0.28
+82,GI,Gibraltar,NULL
+83,GR,Greece,0.66
+84,GL,Greenland,NULL
+85,GD,Grenada,0.68
+86,GP,Guadeloupe,NULL
+87,GU,Guam,NULL
+88,GT,Guatemala,0.54
+89,GG,Guernsey,NULL
+90,GN,Guinea,0.40
+91,GW,Guinea-Bissau,0.42
+92,GY,Guyana,0.56
+93,HT,Haiti,0.32
+94,HM,"Heard/ Mcdonald Islands",NULL
+95,VA,"Holy See/ Vatican City",NULL
+96,HN,Honduras,0.48
+97,HK,"Hong Kong",0.77
+98,HU,Hungary,0.43
+99,IS,Iceland,1.05
+100,IN,India,0.25
+101,ID,Indonesia,0.30
+102,IR,Iran,0.37
+103,IQ,Iraq,0.32
+104,IE,Ireland,0.92
+105,IL,Israel,1.14
+106,IT,Italy,0.81
+107,JM,Jamaica,0.54
+108,JP,Japan,0.91
+109,JE,Jersey,NULL
+110,JO,Jordan,0.46
+111,KZ,Kazakhstan,0.29
+112,KE,Kenya,0.50
+113,KI,Kiribati,0.72
+114,KW,Kuwait,0.42
+115,KG,Kyrgyzstan,0.30
+116,LA,"Lao People’s DR",0.32
+117,LV,Latvia,0.58
+118,LB,Lebanon,0.63
+119,LS,Lesotho,0.33
+120,LR,Liberia,0.00
+121,LY,"Libyan Arab Jamahiriya",0.56
+122,LI,Liechtenstein,NULL
+123,LT,Lithuania,0.52
+124,LU,Luxembourg,1.02
+125,MO,Macao,0.71
+126,MK,Macedonia,0.37
+127,MG,Madagascar,0.26
+128,MW,Malawi,0.31
+129,MY,Malaysia,0.34
+130,MV,Maldives,0.67
+131,ML,Mali,0.37
+132,MT,Malta,0.65
+133,MH,"Marshall Islands",1.02
+134,MQ,Martinique,NULL
+135,MR,Mauritania,0.30
+136,MU,Mauritius,0.41
+137,YT,Mayotte,NULL
+138,MX,Mexico,0.40
+139,FM,Micronesia,1.04
+140,MD,Moldova,0.44
+141,MC,Monaco,NULL
+142,MN,Mongolia,0.28
+143,ME,Montenegro,0.43
+144,MS,Montserrat,NULL
+145,MA,Morocco,0.36
+146,MZ,Mozambique,0.33
+147,MM,Myanmar,0.21
+148,NA,Namibia,0.41
+149,NR,Nauru,0.65
+150,NP,Nepal,0.30
+151,NL,Netherlands,0.89
+152,AN,"Netherlands Antilles",NULL
+153,NC,"New Caledonia",NULL
+154,NZ,"New Zealand",0.96
+155,NI,Nicaragua,0.35
+156,NE,Niger,0.37
+157,NG,Nigeria,0.31
+158,NU,Niue,NULL
+159,NF,"Norfolk Island",NULL
+160,KP,"North Korea",NULL
+161,MP,"Northern Mariana Islands",NULL
+162,NO,Norway,0.92
+163,OM,Oman,0.39
+164,PK,Pakistan,0.19
+165,PW,Palau,1.08
+166,PS,"Palestinian Territory",NULL
+167,PA,Panama,0.61
+168,PG,"Papua New Guinea",0.65
+169,PY,Paraguay,0.38
+170,PE,Peru,0.46
+171,PH,Philippines,0.37
+172,PN,Pitcairn,NULL
+173,PL,Poland,0.44
+174,PT,Portugal,0.69
+175,PR,"Puerto Rico",0.79
+176,QA,Qatar,0.52
+177,RS,"Republic of Serbia",0.40
+178,RE,Reunion,NULL
+179,RO,Romania,0.43
+180,RU,"Russian Federation",0.36
+181,RW,Rwanda,0.32
+182,GS,"S. Georgia/ Sandwich Islands",NULL
+183,SH,"Saint Helena",NULL
+184,KN,"Saint Kitts and Nevis",0.60
+185,LC,"Saint Lucia",0.74
+186,PM,"Saint Pierre and Miquelon",NULL
+187,VC,"Saint Vincent/ Grenadines",0.63
+188,WS,Samoa,0.72
+189,SM,"San Marino",0.77
+190,ST,"Sao Tome and Principe",0.61
+191,SA,"Saudi Arabia",0.40
+192,SN,Senegal,0.38
+193,SC,Seychelles,0.43
+194,SL,"Sierra Leone",0.29
+195,SG,Singapore,0.62
+196,SK,Slovakia,0.53
+197,SI,Slovenia,0.68
+198,SB,"Solomon Islands",0.97
+199,SO,Somalia,0.00
+200,ZA,"South Africa",0.37
+201,KR,"South Korea",0.69
+202,ES,Spain,0.72
+203,LK,"Sri Lanka",0.27
+204,SD,Sudan,0.20
+205,SR,Suriname,0.40
+206,SJ,"Svalbard and Jan Mayen",NULL
+207,SZ,Swaziland,0.31
+208,SE,Sweden,0.95
+209,CH,Switzerland,1.31
+210,SY,"Syrian Arab Republic",NULL
+211,TW,Taiwan,0.48
+212,TJ,Tajikistan,0.22
+213,TZ,Tanzania,0.33
+214,TH,Thailand,0.40
+215,TL,Timor-Leste,0.44
+216,TG,Togo,0.37
+217,TK,Tokelau,NULL
+218,TO,Tonga,0.75
+219,TT,"Trinidad and Tobago",0.50
+220,TN,Tunisia,0.27
+221,TR,Turkey,0.26
+222,TM,Turkmenistan,0.41
+223,TC,"Turks and Caicos Islands",NULL
+224,TV,Tuvalu,0.89
+225,VI,"U.S. Virgin Islands",NULL
+226,UG,Uganda,0.30
+227,UA,Ukraine,0.36
+228,AE,"United Arab Emirates",0.56
+229,GB,"United Kingdom",0.86
+230,US,"United States",1.00
+231,UM,"United States (M.O.I.)",NULL
+232,UY,Uruguay,0.57
+233,UZ,Uzbekistan,0.16
+234,VU,Vanuatu,1.06
+235,VE,Venezuela,1.76
+236,VN,Vietnam,0.34
+237,WF,"Wallis and Futuna",NULL
+238,EH,"Western Sahara",NULL
+239,YE,Yemen,0.93
+240,ZM,Zambia,0.23
+241,ZW,Zimbabwe,0.17
