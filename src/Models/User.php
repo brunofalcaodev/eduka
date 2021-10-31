@@ -41,7 +41,10 @@ class User extends Authenticatable implements ShouldQueue
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'subscribed' => 'boolean',
+
+        'is_subscribed' => 'boolean',
+        'is_admin' => 'boolean',
+
         'properties' => 'array',
     ];
 
@@ -107,9 +110,9 @@ class User extends Authenticatable implements ShouldQueue
             'created_at' => now(), ]);
 
         $link = url(route('password.reset', [
-                      'token' => $token,
-                      'email' => $this->email,
-                ], false));
+            'token' => $token,
+            'email' => $this->email,
+        ], false));
 
         return $link;
     }

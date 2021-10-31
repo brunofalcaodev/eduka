@@ -95,10 +95,10 @@ class LoginController extends Controller
 
         if ($authUser) {
             $authUser->update(['provider_id' => $user->id,
-                               'provider'    => $provider,
-                               'name'        => $user->name,
-                               'nickname'    => $user->nickname,
-                               'avatar'      => $user->avatar, ]);
+                'provider'    => $provider,
+                'name'        => $user->name,
+                'nickname'    => $user->nickname,
+                'avatar'      => $user->avatar, ]);
 
             return $authUser;
         }

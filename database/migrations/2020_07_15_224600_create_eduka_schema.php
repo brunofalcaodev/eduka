@@ -1,6 +1,6 @@
 <?php
 
-use Eduka\Database\Seeders\InitialSeeder;
+use Eduka\Seeders\InitialSchemaSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
@@ -26,6 +26,14 @@ class CreateEdukaSchema extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_admin')
+                  ->default(false)
+                  ->comment('User admin profile. If it is admin it can have access to the backoffice and to horizon.');
+
+            $table->boolean('is_subscribed')
+                  ->default(false)
+                  ->comment('When a user is created, there is a check to see if it was previously subscribed.');
+
             $table->longtext('properties')
                   ->comment('Stores last ip, last seen video timestamp, etc.')
                   ->after('remember_token')
@@ -243,13 +251,15 @@ class CreateEdukaSchema extends Migration
         // Delete the "public/storage" folder.
         @$this->rrmdir(public_path('storage'));
 
+        if (! is_dir(storage_path('app/public'))) {
+            mkdir(storage_path('app/public'));
+        }
+
         // Call initial schema activation
         Artisan::call('db:seed', [
-            '--class' => InitialSeeder::class,
+            '--class' => InitialSchemaSeeder::class,
             '--force' => true,
         ]);
-
-        mkdir(storage_path('app/public'));
     }
 
     /**

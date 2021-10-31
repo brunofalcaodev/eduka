@@ -62,19 +62,19 @@ class EdukaServiceProvider extends ServiceProvider
              ->group(function () {
 
                 //common routes file.
-                include __DIR__.'/../routes/default.php';
+                 include __DIR__.'/../routes/default.php';
 
-                /**
-                * For debug/development purposes eduka will load the
-                * respective environment route file if it exists.
-                */
-                $envRoutesFile = __DIR__ .
-                              '/../routes/' .
-                              env('APP_ENV') .
+                 /**
+                  * For debug/development purposes eduka will load the
+                  * respective environment route file if it exists.
+                  */
+                 $envRoutesFile = __DIR__.
+                              '/../routes/'.
+                              env('APP_ENV').
                               '.php';
-                if (file_exists($envRoutesFile)) {
-                    include $envRoutesFile;
-                }
+                 if (file_exists($envRoutesFile)) {
+                     include $envRoutesFile;
+                 }
              });
     }
 
@@ -115,14 +115,14 @@ class EdukaServiceProvider extends ServiceProvider
     protected function publishResources()
     {
         $this->publishes([
-        __DIR__.'/../resources/overrides/' => base_path('/'),
+            __DIR__.'/../resources/overrides/' => base_path('/'),
         ], 'eduka');
     }
 
     protected function registerMacros()
     {
         // Include all files from the Macros folder.
-        Collection::make(glob(__DIR__ . '/../Macros/*.php'))
+        Collection::make(glob(__DIR__.'/../Macros/*.php'))
                   ->mapWithKeys(function ($path) {
                       return [$path => pathinfo($path, PATHINFO_FILENAME)];
                   })

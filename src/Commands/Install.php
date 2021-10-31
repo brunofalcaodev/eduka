@@ -27,6 +27,12 @@ final class Install extends Command
 
         $this->paragraph('-= Installation starting =-', false);
 
+        $this->checkAdminCredentials();
+
+        $this->deleteOriginalCreateUsersMigration();
+
+        $this->migrateFresh();
+
         $this->deleteStorageDirectories();
 
         $this->createStorageLink();
@@ -41,7 +47,46 @@ final class Install extends Command
 
         $this->deleteAppModelsFolder();
 
+        $this->createAdminUser();
+
+        $this->paragraph('-= All done! Now install your course package to start using Eduka! =-', false);
+
         return 0;
+    }
+
+    protected function createAdminUser()
+    {
+    }
+
+    protected function deleteOriginalCreateUsersMigration()
+    {
+        $this->paragraph('=> Deleting original create_users migration file...', false);
+
+        foreach (glob(database_path('migrations/*create_users*.php')) as $filename) {
+            @unlink($filename);
+        }
+    }
+
+    protected function migrateFresh()
+    {
+        $this->paragraph('=> Freshing database...', false);
+
+        $this->call('migrate:fresh');
+    }
+
+    protected function checkAdminCredentials()
+    {
+        /*
+         * Create the admin user using env credentials:
+         * EDUKA_ADMIN_NAME
+         * EDUKA_ADMIN_EMAIL
+         * EDUKA_ADMIN_PASSWORD
+         */
+
+        if (!env('EDUKA_ADMIN_NAME') || !env('EDUKA_ADMIN_EMAIL') || !env('EDUKA_ADMIN_PASSWORD')) {
+            $this->error('Check your ENV credentials: EDUKA_ADMIN_NAME, EDUKA_ADMIN_EMAIL and EDUKA_ADMIN_PASSWORD');
+            exit();
+        }
     }
 
     protected function publishEdukaResources()
@@ -50,7 +95,7 @@ final class Install extends Command
 
         $this->call('vendor:publish', [
             '--provider' => 'Eduka\EdukaServiceProvider',
-            '--force' => true
+            '--force' => true,
         ]);
     }
 

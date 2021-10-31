@@ -45,21 +45,21 @@ class ThankYouForPurchasing extends Mailable implements ShouldQueue
          //->with('hero', 'thank-you.jpg')
          ->with('paragraphs', [
 
-            ['Thank you for buying Mastering Nova' => [
-                'Hi there!',
-                'Super excited that you bought my course, Mastering Nova! Thank you very much for it, and I hope you can enjoy it as much as I did recording it!',
-                'Feel free to reach me with issues, improvements or any feedback you want to give. I answer all emails.',
-                ],
-            ],
-            ['Next Step!' => [
-                'You need to reset your password. Please click on the button below and then login.',
-                ],
-            ],
-            ['Where is my invoice?' => [
-                "You can access your invoice inside the dashboard after you log in, or just on this <a href='".$this->receipt."' target='_blank'>link to download it immediately</a>.",
-                ],
-            ],
+             ['Thank you for buying Mastering Nova' => [
+                 'Hi there!',
+                 'Super excited that you bought my course, Mastering Nova! Thank you very much for it, and I hope you can enjoy it as much as I did recording it!',
+                 'Feel free to reach me with issues, improvements or any feedback you want to give. I answer all emails.',
+             ],
+             ],
+             ['Next Step!' => [
+                 'You need to reset your password. Please click on the button below and then login.',
+             ],
+             ],
+             ['Where is my invoice?' => [
+                 "You can access your invoice inside the dashboard after you log in, or just on this <a href='".$this->receipt."' target='_blank'>link to download it immediately</a>.",
+             ],
+             ],
 
-        ]);
+         ]);
     }
 }

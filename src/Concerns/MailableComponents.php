@@ -13,11 +13,11 @@ trait MailableComponents
 
         $head->with('mj-attributes')
                 ->with('mj-all', ['font-family' => 'Open Sans',
-                                  'font-size' => '14px',
-                                  'letter-spacing' => '0.02rem',
-                                  'background-color' => '#EBF4FF', /* Indigo 100 */
-                                  'line-height' => '1.5rem',
-                                  'padding' => '0px', ]);
+                    'font-size' => '14px',
+                    'letter-spacing' => '0.02rem',
+                    'background-color' => '#EBF4FF', /* Indigo 100 */
+                    'line-height' => '1.5rem',
+                    'padding' => '0px', ]);
 
         return $head;
     }

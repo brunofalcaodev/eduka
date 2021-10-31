@@ -22,9 +22,9 @@ class ResetYourPassword extends Mailable implements ShouldQueue
     public function __construct(User $user, string $token)
     {
         $this->link = url(route('password.reset', [
-                              'token' => $token,
-                              'email' => $user->email,
-                        ], false));
+            'token' => $token,
+            'email' => $user->email,
+        ], false));
     }
 
     /**
@@ -44,14 +44,14 @@ class ResetYourPassword extends Mailable implements ShouldQueue
          ->with('button', ['text' => 'Reset my Password', 'link' => $this->link])
          ->with('paragraphs', [
 
-            ['Password Request requested' => [
-                'Hi there,',
-                'Looks like you have requested to reset your password.',
-                'No worries. We all have our moments of forgetfulness :)',
-                'Just click in the button below to be redirected to your password reset page.',
-                ],
-            ],
+             ['Password Request requested' => [
+                 'Hi there,',
+                 'Looks like you have requested to reset your password.',
+                 'No worries. We all have our moments of forgetfulness :)',
+                 'Just click in the button below to be redirected to your password reset page.',
+             ],
+             ],
 
-        ]);
+         ]);
     }
 }
