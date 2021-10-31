@@ -39,6 +39,8 @@ final class Install extends Command
 
         $this->publishEdukaResources();
 
+        $this->deleteAppModelsFolder();
+
         return 0;
     }
 
@@ -79,6 +81,13 @@ final class Install extends Command
         $this->call('nova:install');
         $this->call('migrate');
         $this->call('nova:publish');
+    }
+
+    protected function deleteAppModelsFolder()
+    {
+        $this->paragraph('=> Deleting App/Models folder...', false);
+
+        @$this->rrmdir(app_path('Models'));
     }
 
     protected function deleteStorageDirectories()

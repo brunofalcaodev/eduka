@@ -22,47 +22,6 @@ class InitialSeeder extends Seeder
      */
     public function run()
     {
-        // Add one line to the paddle_log so we can make checkout tests.
-        PaddleLog::create([
-
-            'alert_id' => '37439032',
-            'alert_name' => 'payment_succeeded',
-            'checkout_id' => '68618190-chre064887bf4ff-73176d78a7',
-            'country' => 'CH',
-            'currency' => 'USD',
-            'customer_name' => 'BRUNO DA SILVA C FALCAO',
-            'email' => 'bruno.falcao@live.com',
-            'event_time' => now(),
-            'order_id' => 18317663,
-            'payment_method' => 'card',
-            'receipt_url' => 'http://my.paddle.com/receipt/18317663/68618190-chre064887bf4ff-73176d78a7',
-            'sale_gross' => '3.10',
-            'gross_refund' => null,
-            'refund_reason' => null,
-            'passthrough' => null,
-            'payload' => null,
-
-        ]);
-
-        // Import Laraning users into Mastering Nova subscribers
-        // (csv laraning-users.csv).
-        $lines = file(__DIR__.'/../../database/seeds/laraning-users.csv', FILE_IGNORE_NEW_LINES);
-
-        foreach ($lines as $line) {
-            $subscriber = explode(',', $line);
-            Subscriber::create([
-                'email' => $subscriber[2], ]);
-        }
-
-        // (csv mastering-nova-subscribers.csv).
-        $lines = file(__DIR__.'/../../database/seeds/mastering-nova-subscribers.csv', FILE_IGNORE_NEW_LINES);
-
-        foreach ($lines as $line) {
-            $subscriber = explode(',', $line);
-            Subscriber::create([
-                'email' => $subscriber[1], ]);
-        }
-
         // Delete all folders/files in the storage public directory.
         collect(Storage::allDirectories('public'))->each(function ($directory) {
             Storage::deleteDirectory($directory);
@@ -105,14 +64,7 @@ class InitialSeeder extends Seeder
         User::create([
             'name' => 'Bruno Falcao',
             'email' => 'bruno@masteringnova.com',
-            'password' => bcrypt('MoraisSoares1#!'),
-        ]);
-
-        // Create a test user.
-        User::create([
-            'name' => 'Bruno Falcao (live)',
-            'email' => 'bruno.falcao@live.com',
-            'password' => bcrypt('MoraisSoares1#!'),
+            'password' => bcrypt('password'),
         ]);
 
         // Create all chapters.

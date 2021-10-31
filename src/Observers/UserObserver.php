@@ -3,6 +3,7 @@
 namespace Eduka\Observers;
 
 use Eduka\Models\User;
+use Illuminate\Support\Str;
 
 class UserObserver
 {
@@ -14,7 +15,9 @@ class UserObserver
      */
     public function saving(User $user)
     {
-        //
+        if (is_null($user->uuid)) {
+            $user->uuid = (string) Str::uuid();
+        }
     }
 
     /**
