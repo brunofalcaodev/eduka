@@ -1,7 +1,6 @@
 <?php
 
-use Brunocfalcao\MasteringNova\Models\Video;
-use Brunocfalcao\MasteringNova\Seeders\InitialSeeder;
+use Eduka\Database\Seeders\InitialSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
@@ -153,8 +152,7 @@ class CreateEdukaSchema extends Migration
         Schema::create('affiliates', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name')
-                  ->after('id');
+            $table->string('name');
 
             $table->string('domain')
                   ->comment('Base domain without https://www.*. E.g. laravel.io, laravelnews.com, etc');
@@ -163,7 +161,7 @@ class CreateEdukaSchema extends Migration
                   ->comment('Paddle vendor id');
 
             $table->unsignedInteger('commission')
-                  ->comment('Commission percentage, integer. E.g. 35 means 35%.');
+                  ->comment('Commission percentage, integer. E.g. 35 means 35 percent.');
 
             $table->timestamps();
         });
@@ -238,11 +236,20 @@ class CreateEdukaSchema extends Migration
             $table->timestamps();
         });
 
-        // Call initial seeder. Mandatory to initialize the schema correctly.
+        // Delete all folders/files in the storage public directory.
+        @$this->rrmdir(storage_path('app/public'));
+
+        // Delete the public/storage folder.
+        // Delete the "public/storage" folder.
+        @$this->rrmdir(public_path('storage'));
+
+        // Call initial schema activation
         Artisan::call('db:seed', [
             '--class' => InitialSeeder::class,
             '--force' => true,
         ]);
+
+        mkdir(storage_path('app/public'));
     }
 
     /**
@@ -252,5 +259,17 @@ class CreateEdukaSchema extends Migration
      */
     public function down()
     {
+    }
+
+    private function rrmdir($dir)
+    {
+        if (is_array($dir)) {
+            $files = array_diff(scandir($dir), ['.', '..']);
+            foreach ($files as $file) {
+                (is_dir("$dir/$file")) ? $this->rrmdir("$dir/$file") : unlink("$dir/$file");
+            }
+        }
+
+        return rmdir($dir);
     }
 }

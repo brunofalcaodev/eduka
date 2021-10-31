@@ -1,61 +1,70 @@
 <?php
 
-namespace Nidavellir\Cube;
+namespace Eduka;
 
+use Eduka\Commands\Install;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
-class NidavellirCubeServiceProvider extends ServiceProvider
+class EdukaServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         $this->importMigrations();
-        $this->registerObservers();
-        $this->registerPolicies();
         $this->registerCommands();
-        $this->publishResources();
-        $this->loadTestRoutes();
         $this->loadRoutes();
         $this->loadViews();
+
+
+
+        //$this->registerObservers();
+        //$this->registerPolicies();
+        //$this->publishResources();
+    }
+
+    protected function registerContainers()
+    {
+        $this->app->singleton('website-checkout', function () {
+            return new WebsiteCheckout();
+        });
     }
 
     protected function loadViews()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'site');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'eduka');
     }
 
     protected function loadRoutes()
     {
-        /*
         Route::middleware(['web'])
              ->group(function () {
-                 include __DIR__.'/../routes/web.php';
-             });
-        */
-    }
 
-    protected function loadTestRoutes()
-    {
-        /*
-        if (app()->environment() != 'production') {
-            if (file_exists(__DIR__.'/../routes/tests.php')) {
-                $routesPath = __DIR__.'/../routes/tests.php';
-                Route::middleware(['web'])
-                 ->group(function () use ($routesPath) {
-                     include $routesPath;
-                 });
-            }
-        }
-        */
+                 include __DIR__.'/../routes/default.php';
+
+                 $envRoutesFile = __DIR__ .
+                                  '/../routes/' .
+                                  env('APP_ENV') .
+                                  '.php';
+
+                 /**
+                  * For debug/development purposes eduka will load the
+                  * respective environment route file if it exists.
+                  */
+                if (file_exists($envRoutesFile)) {
+                    include $envRoutesFile;
+                }
+             });
     }
 
     public function register()
     {
-        //
+        $this->registerContainers();
+        $this->registerMacros();
     }
 
     protected function importMigrations(): void
     {
-        //$this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     protected function registerObservers(): void
@@ -70,19 +79,27 @@ class NidavellirCubeServiceProvider extends ServiceProvider
 
     protected function registerCommands(): void
     {
-        /*
         $this->commands([
-            TestCommand::class,
+            Install::class,
         ]);
-        */
     }
 
     protected function publishResources()
     {
-        /*
         $this->publishes([
-            __DIR__.'/../resources/overrides/' => base_path('/'),
-        ], 'package-name');
-        */
+        __DIR__.'/../resources/overrides/' => base_path('/'),
+        ], 'eduka');
+    }
+
+    protected function registerMacros()
+    {
+        // Include all files from the Macros folder.
+        Collection::make(glob(__DIR__ . '/../Macros/*.php'))
+                  ->mapWithKeys(function ($path) {
+                      return [$path => pathinfo($path, PATHINFO_FILENAME)];
+                  })
+                  ->each(function ($macro, $path) {
+                      require_once $path;
+                  });
     }
 }
