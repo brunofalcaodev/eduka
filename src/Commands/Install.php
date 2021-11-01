@@ -4,6 +4,8 @@ namespace Eduka\Commands;
 
 use Eduka\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Process\Process;
 
 final class Install extends Command
 {
@@ -30,7 +32,7 @@ final class Install extends Command
 
         $this->preChecks();
 
-        $this->deleteOriginalCreateUsersMigration();
+        $this->deleteDuplicatedMigrations();
 
         $this->migrateFresh();
 
@@ -40,13 +42,13 @@ final class Install extends Command
 
         $this->installNova();
 
-        $this->cleanCache();
-
         $this->publishAllResources();
 
         $this->publishEdukaResources();
 
         $this->deleteAppModelsFolder();
+
+        $this->cleanCache();
 
         $this->createAdminUser();
 
@@ -108,11 +110,15 @@ final class Install extends Command
         ]);
     }
 
-    protected function deleteOriginalCreateUsersMigration()
+    protected function deleteDuplicatedMigrations()
     {
         $this->paragraph('=> Deleting original create_users migration file...', false);
 
         foreach (glob(database_path('migrations/*create_users*.php')) as $filename) {
+            @unlink($filename);
+        }
+
+        foreach (glob(database_path('migrations/*create_media_table*.php')) as $filename) {
             @unlink($filename);
         }
     }
@@ -121,27 +127,28 @@ final class Install extends Command
     {
         $this->paragraph('=> Freshing database...', false);
 
-        $this->call('migrate:fresh');
+        $this->executeCommand('php artisan migrate:fresh');
     }
 
     protected function publishEdukaResources()
     {
         $this->paragraph('=> Publishing eduka resources...', false);
 
-        $this->call('vendor:publish', [
-            '--provider' => 'Eduka\EdukaServiceProvider',
-            '--force' => true,
-        ]);
+        $this->executeCommand('php artisan vendor:publish --provider=Eduka\EdukaServiceProvider --force');
     }
 
     protected function publishAllResources()
     {
         $this->paragraph('=> Publishing all vendors resources...', false);
 
-        $this->call('vendor:publish', [
-            '--force' => true,
+        $this->executeCommand('php artisan vendor:publish --all --force', getcwd());
+
+        /*
+        Artisan::call('vendor:publish', [
             '--all' => true,
+            '--force' => true,
         ]);
+        */
     }
 
     protected function cleanCache()
@@ -149,9 +156,9 @@ final class Install extends Command
         $this->paragraph('=> Cleaning Laravel cache...', false);
 
         // Clear framework cache.
-        $this->call('optimize:clear');
-        $this->call('view:clear');
-        $this->call('key:generate');
+        $this->executeCommand('php artisan optimize:clear');
+        $this->executeCommand('php artisan view:clear');
+        $this->executeCommand('php artisan key:generate');
     }
 
     protected function installNova()
@@ -205,8 +212,12 @@ final class Install extends Command
      * @param  string  $path
      * @return void
      */
-    private function executeCommand($command, $path)
+    private function executeCommand($command, $path = null)
     {
+        if ($path == null) {
+            $path = getcwd();
+        }
+
         $process = (Process::fromShellCommandline($command, $path))->setTimeout(null);
 
         if ('\\' !== DIRECTORY_SEPARATOR && file_exists('/dev/tty') && is_readable('/dev/tty')) {
