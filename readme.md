@@ -5,13 +5,14 @@ from scratch.
 
 # Installation
 
-First remove all the non-used packages from your Laravel application, like
+### Remove all the non-used packages from your Laravel application, like
 sanctum, laravel sail, and for debugging use the filp/whoops instead of the
 default one.
 
-Second, after installing this package, run the command:
+Add the envs EDUKA_ADMIN_NAME, EDUKA_ADMIN_EMAIL, EDUKA_ADMIN_PASSWORD
 
-php artisan vendor:publish --all --force
-php artisan vendor:publish --provider=Eduka\Providers\EdukaServiceProvider --force
+### Composer require brunofalcaodev/eduka
+
+
 
 

@@ -2,6 +2,7 @@
 
 namespace Eduka\Commands;
 
+use Eduka\Models\User;
 use Illuminate\Console\Command;
 
 final class Install extends Command
@@ -27,7 +28,7 @@ final class Install extends Command
 
         $this->paragraph('-= Installation starting =-', false);
 
-        $this->checkAdminCredentials();
+        $this->preChecks();
 
         $this->deleteOriginalCreateUsersMigration();
 
@@ -51,11 +52,60 @@ final class Install extends Command
 
         $this->paragraph('-= All done! Now install your course package to start using Eduka! =-', false);
 
-        return 0;
+        return Command::SUCCESS;
+    }
+
+    protected function preChecks()
+    {
+        $this->paragraph('Running pre-checks...', false);
+
+        /**
+         * Quick ENV key/values validation.
+         * key name => type
+         * type can be:
+         *   null (should exist, any value allowed)
+         *   a value (equal to that value).
+         */
+        $envVars = collect([
+            'EDUKA_ADMIN_NAME' => null,
+            'EDUKA_ADMIN_EMAIL' => null,
+            'EDUKA_ADMIN_PASSWORD' => null,
+            'EDUKA_LAUNCHED' => null,
+            'POSTMARK_TOKEN' => null,
+            'PADDLE_SANDBOX' => null,
+            'PADDLE_VENDOR_ID' => null,
+            'PADDLE_VENDOR_AUTH_CODE' => null,
+            'PADDLE_PUBLIC_KEY' => null,
+            'QUEUE_CONNECTION' => 'redis',
+            'CACHE_DRIVER' => 'redis',
+            'MAIL_MAILER' => 'postmark',
+        ]);
+
+        $envVars->each(function ($value, $key) {
+            if (is_null(env($key))) {
+                $this->error('.env '.$key.' cannot be null / must exist');
+                exit();
+            } elseif (env($key) != $value && ! is_null($value)) {
+                $this->error('.env '.$key.' should be equal to '.$value);
+                exit();
+            }
+        });
+
+        if (is_file(app_path('app/Providers/HorizonServiceProvider.php')) &&
+            app()->environment() == 'production') {
+            return $this->error('Please install Laravel Horizon before running Eduka');
+        }
+
+        return true;
     }
 
     protected function createAdminUser()
     {
+        User::create([
+            'name' => env('EDUKA_ADMIN_NAME'),
+            'email' => env('EDUKA_ADMIN_EMAIL'),
+            'password' => bcrypt(env('EDUKA_ADMIN_PASSWORD')),
+        ]);
     }
 
     protected function deleteOriginalCreateUsersMigration()
@@ -72,21 +122,6 @@ final class Install extends Command
         $this->paragraph('=> Freshing database...', false);
 
         $this->call('migrate:fresh');
-    }
-
-    protected function checkAdminCredentials()
-    {
-        /*
-         * Create the admin user using env credentials:
-         * EDUKA_ADMIN_NAME
-         * EDUKA_ADMIN_EMAIL
-         * EDUKA_ADMIN_PASSWORD
-         */
-
-        if (! env('EDUKA_ADMIN_NAME') || ! env('EDUKA_ADMIN_EMAIL') || ! env('EDUKA_ADMIN_PASSWORD')) {
-            $this->error('Check your ENV credentials: EDUKA_ADMIN_NAME, EDUKA_ADMIN_EMAIL and EDUKA_ADMIN_PASSWORD');
-            exit();
-        }
     }
 
     protected function publishEdukaResources()

@@ -190,7 +190,7 @@ class EdukaServiceProvider extends ServiceProvider
         // Register checkout return url.
         Route::any(
             'paddle/thanks/{checkout}',
-            '\Brunocfalcao\MasteringNova\Features\Purchased\Controllers\PurchasedController@thanks'
+            '\MasteringNova\Features\Purchased\Controllers\PurchasedController@thanks'
         )
              ->name('purchased.thanks');
     }
