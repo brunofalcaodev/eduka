@@ -21,6 +21,9 @@ class CreateEdukaSchema extends Migration
             $table->string('name')
                   ->comment('Course name');
 
+            $table->string('canonical')
+                  ->comment('The course canonical, the same as the public/vendor/xxx');
+
             $table->boolean('is_active')
                   ->default(false)
                   ->comment('If a course is active then it can be bought and there is no pre-subscription');
