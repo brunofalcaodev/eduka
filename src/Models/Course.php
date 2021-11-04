@@ -21,7 +21,7 @@ class Course extends Model implements HasMedia
     protected $casts = [
         'is_active' => 'boolean',
         'meta_tags' => 'array',
-        'launched_at' => 'datetime'
+        'launched_at' => 'datetime',
     ];
 
     public function registerMediaConversions(Media $media = null): void
