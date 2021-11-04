@@ -16,17 +16,17 @@ class PayLink
 
     protected function inSession()
     {
-        return filled(session('website-paylink')) && env('PADDLE_CHECKOUT_SESSION') == 1;
+        return filled(session('course-paylink')) && env('PADDLE_CHECKOUT_SESSION') == 1;
     }
 
     protected function fromSession()
     {
-        return session('website-paylink');
+        return session('course-paylink');
     }
 
     protected function toSession()
     {
-        session(['website-paylink' => $this]);
+        session(['course-paylink' => $this]);
     }
 
     public function link($price, $passthrough = '')

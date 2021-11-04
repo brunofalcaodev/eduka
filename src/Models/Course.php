@@ -3,20 +3,26 @@
 namespace Eduka\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Website extends Model implements HasMedia
+class Course extends Model implements HasMedia
 {
     use InteractsWithMedia;
+    use SoftDeletes;
 
     protected $guarded = [];
 
-    protected $table = 'website';
+    protected $table = 'course';
 
-    protected $casts = [];
+    protected $casts = [
+        'is_active' => 'boolean',
+        'meta_tags' => 'array',
+        'launched_at' => 'datetime'
+    ];
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -40,7 +46,7 @@ class Website extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        // Website social image for facebook and twitter.
+        // Course social image for facebook and twitter.
         $this->addMediaCollection('social')
              ->singleFile();
     }

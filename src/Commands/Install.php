@@ -32,21 +32,21 @@ final class Install extends Command
 
         $this->preChecks();
 
-        $this->deleteDuplicatedMigrations();
+        $this->deleteNativeLaravelFiles();
 
         $this->migrateFresh();
 
         $this->deleteStorageDirectories();
 
-        $this->createStorageLink();
-
-        $this->installNova();
+        //$this->installNova();
 
         $this->publishAllResources();
 
         $this->publishEdukaResources();
 
         $this->deleteAppModelsFolder();
+
+        $this->createStorageLink();
 
         $this->cleanCache();
 
@@ -110,16 +110,24 @@ final class Install extends Command
         ]);
     }
 
-    protected function deleteDuplicatedMigrations()
+    protected function deleteNativeLaravelFiles()
     {
-        $this->paragraph('=> Deleting original create_users migration file...', false);
+        $this->paragraph('=> Deleting optional/unecessary Laravel files...', false);
+
+        foreach (glob(public_path('vendor/*')) as $filename) {
+            delete_all($filename);
+        }
 
         foreach (glob(database_path('migrations/*create_users*.php')) as $filename) {
-            @unlink($filename);
+            delete_all($filename);
         }
 
         foreach (glob(database_path('migrations/*create_media_table*.php')) as $filename) {
-            @unlink($filename);
+            delete_all($filename);
+        }
+
+        foreach (glob(resource_path('views/*')) as $filename) {
+            delete_all($filename);
         }
     }
 
@@ -174,24 +182,21 @@ final class Install extends Command
     {
         $this->paragraph('=> Deleting App/Models folder...', false);
 
-        @$this->rrmdir(app_path('Models'));
+        delete_all(app_path('Models'));
     }
 
     protected function deleteStorageDirectories()
     {
         $this->paragraph('=> Deleting storage public directories (if they exist)...', false);
 
-        @$this->rrmdir(storage_path('app/public'));
+        delete_all(storage_path('app/public'));
     }
 
     protected function createStorageLink()
     {
-        $this->paragraph('=> Creating storage link...');
+        $this->paragraph('=> (re)creating storage link...');
 
-        //Delete storage if it exists.
-        @$this->rrmdir(public_path('storage'));
-
-        $this->call('storage:link');
+        $this->executeCommand('php artisan storage:link --force');
     }
 
     private function paragraph($text, $endlf = true, $startlf = true)
@@ -258,17 +263,5 @@ final class Install extends Command
         }
 
         return $answer;
-    }
-
-    private function rrmdir($dir)
-    {
-        if (is_array($dir)) {
-            $files = array_diff(scandir($dir), ['.', '..']);
-            foreach ($files as $file) {
-                (is_dir("$dir/$file")) ? $this->rrmdir("$dir/$file") : unlink("$dir/$file");
-            }
-        }
-
-        return rmdir($dir);
     }
 }

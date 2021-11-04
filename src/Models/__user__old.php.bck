@@ -4,7 +4,7 @@ namespace Eduka\Models;
 
 use Eduka\Mail\ResetYourPassword;
 use Eduka\Mail\ThankYouForPurchasing;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,10 +13,16 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements ShouldQueue
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use Notifiable;
+    use SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $guarded = [];
 
     /**
@@ -25,8 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     /**
@@ -49,9 +54,10 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    public function getFirstNameAttribute()
+    public function sendPasswordResetNotification($token)
     {
-        return Str::ucfirst(explode(' ', strtolower($this->name))[0]);
+        Mail::to($this->email)
+            ->send(new ResetYourPassword($this, $token));
     }
 
     public static function createFromPurchase(PaddleLog $checkout)
@@ -86,6 +92,11 @@ class User extends Authenticatable
         return $user;
     }
 
+    public function getFirstNameAttribute()
+    {
+        return Str::ucfirst(explode(' ', strtolower($this->name))[0]);
+    }
+
     public function createPasswordResetTokenLinkFromPurchase()
     {
         $token = Str::random(60);
@@ -104,11 +115,5 @@ class User extends Authenticatable
         ], false));
 
         return $link;
-    }
-
-    public function sendPasswordResetNotification($token)
-    {
-        Mail::to($this->email)
-            ->send(new ResetYourPassword($this, $token));
     }
 }

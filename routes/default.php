@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/ppp', function () {
-    session()->forget('website-checkout');
-    session()->forget('website-paylink');
+    session()->forget('course-checkout');
+    session()->forget('course-paylink');
 
     return redirect(route('welcome', ['ppp' => 1]));
 })->name('welcome.ppp');
@@ -34,15 +34,15 @@ Route::redirect('/home', '/videos');
  * 3 requests per minute should be enough.
  */
 Route::get('/paylink', function () {
-    return redirect(WebsiteCheckout::make()->payLink());
+    return redirect(CourseCheckout::make()->payLink());
 })->name('checkout.paylink')
 ->middleware('throttle:3,1');
 
 Route::get('/paylink-half', function () {
-    session()->forget('website-checkout');
-    session()->forget('website-paylink');
+    session()->forget('course-checkout');
+    session()->forget('course-paylink');
 
-    return redirect(WebsiteCheckout::make()->payLinkHalf());
+    return redirect(CourseCheckout::make()->payLinkHalf());
 })->name('checkout.paylink.half')
 ->middleware('throttle:3,1');
 

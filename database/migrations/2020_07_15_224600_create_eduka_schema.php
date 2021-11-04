@@ -15,14 +15,31 @@ class CreateEdukaSchema extends Migration
      */
     public function up()
     {
-        Schema::create('website', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title')
-                  ->comment('The default website <title> tag. Also used for the email headers.');
+            $table->string('name')
+                  ->comment('Course name');
+
+            $table->boolean('is_active')
+                  ->default(false)
+                  ->comment('If a course is active then it can be bought and there is no pre-subscription');
+
+            $table->longText('meta_tags')
+                  ->comment('The HTML meta attributes that are used for social integration (twitter and facebook)')
+                  ->nullable();
+
+            $table->string('meta_image')
+                  ->comment('Course social image')
+                  ->nullable();
+
+            $table->dateTimeTz('launched_at')
+                  ->comment('The launch date time of your course')
+                  ->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::table('users', function (Blueprint $table) {
@@ -63,6 +80,8 @@ class CreateEdukaSchema extends Migration
             $table->uuid('uuid')
                   ->after('allows_emails')
                   ->nullable();
+
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('countries', function (Blueprint $table) {
@@ -72,6 +91,10 @@ class CreateEdukaSchema extends Migration
             $table->string('name');
             $table->decimal('ppp_index', 10, 2)
                   ->nullable();
+
+            $table->timestamps();
+            $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('subscribers', function (Blueprint $table) {
@@ -80,6 +103,8 @@ class CreateEdukaSchema extends Migration
             $table->string('email');
 
             $table->timestamps();
+            $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('chapters', function (Blueprint $table) {
@@ -92,6 +117,7 @@ class CreateEdukaSchema extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('videos', function (Blueprint $table) {
@@ -131,6 +157,7 @@ class CreateEdukaSchema extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('links', function (Blueprint $table) {
@@ -145,6 +172,7 @@ class CreateEdukaSchema extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('videos_completed', function (Blueprint $table) {
@@ -154,7 +182,9 @@ class CreateEdukaSchema extends Migration
 
             $table->unsignedInteger('user_id');
 
-            $table->timestamps(); /* created_at is when the video was completed */
+            $table->timestamps();
+            $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('affiliates', function (Blueprint $table) {
@@ -172,6 +202,8 @@ class CreateEdukaSchema extends Migration
                   ->comment('Commission percentage, integer. E.g. 35 means 35 percent.');
 
             $table->timestamps();
+            $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         Schema::create('paddle_log', function (Blueprint $table) {
@@ -242,6 +274,8 @@ class CreateEdukaSchema extends Migration
                   ->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
+            $table->engine = 'InnoDB';
         });
 
         // Delete all folders/files in the storage public directory.

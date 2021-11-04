@@ -21,11 +21,11 @@ class Chapter extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        /* Image conversion for the website hero images */
+        /* Image conversion for the course hero images */
         $this->addMediaConversion('featured')
              ->fit(Manipulations::FIT_CONTAIN, 570, 513);
 
-        /* Image conversion for the website hero images */
+        /* Image conversion for the course hero images */
         $this->addMediaConversion('featured@2x')
              ->fit(Manipulations::FIT_CONTAIN, 1140, 1026);
 
@@ -41,7 +41,7 @@ class Chapter extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        // Website social image for facebook and twitter.
+        // Course social image for facebook and twitter.
         $this->addMediaCollection('social')
              ->singleFile();
     }

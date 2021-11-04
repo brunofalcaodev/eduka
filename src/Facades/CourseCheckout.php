@@ -4,10 +4,7 @@ namespace Eduka\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @see \Brunocfalcao\Boilerplate\Skeleton\SkeletonClass
- */
-class WebsiteCheckout extends Facade
+class CourseCheckout extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +13,6 @@ class WebsiteCheckout extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'website-checkout';
+        return 'course-checkout';
     }
 }

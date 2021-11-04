@@ -3,7 +3,7 @@
 namespace Eduka;
 
 use Eduka\Commands\Install;
-use Eduka\Facades\WebsiteCheckout;
+use Eduka\Facades\CourseCheckout;
 use Eduka\Models\Affiliate;
 use Eduka\Models\Chapter;
 use Eduka\Models\Link;
@@ -39,13 +39,20 @@ class EdukaServiceProvider extends ServiceProvider
         $this->registerBladeDirectives();
         $this->registerObservers();
         $this->publishResources();
+        $this->registerBladeComponents();
     }
 
     protected function registerContainers()
     {
-        $this->app->singleton('website-checkout', function () {
-            return new WebsiteCheckout();
+        $this->app->singleton('course-checkout', function () {
+            return new CourseCheckout();
         });
+    }
+
+    protected function registerBladeComponents()
+    {
+        // Register blade components namespace.
+        Blade::componentNamespace('Eduka\\Views\\Components', 'eduka');
     }
 
     protected function loadViews()
@@ -112,7 +119,7 @@ class EdukaServiceProvider extends ServiceProvider
     protected function publishResources()
     {
         $this->publishes([
-            __DIR__.'/../resources/overrides/' => base_path('/'),
+            __DIR__.'/../overrides/' => base_path('/'),
         ], 'eduka-overrides');
     }
 

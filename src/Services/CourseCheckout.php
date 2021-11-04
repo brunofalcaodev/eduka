@@ -3,12 +3,11 @@
 namespace Eduka\Services;
 
 use Eduka\Models\Country;
-use Eduka\Models\Website;
 use Eduka\Utils\Price;
 use Illuminate\Support\Facades\Request;
 use ProtoneMedia\LaravelPaddle\Paddle;
 
-class WebsiteCheckout
+class CourseCheckout
 {
     protected $price;
 
@@ -21,24 +20,24 @@ class WebsiteCheckout
 
     public static function make()
     {
-        $checkout = new WebsiteCheckout();
+        $checkout = new CourseCheckout();
 
         return $checkout;
     }
 
     protected function inSession()
     {
-        return filled(session('website-checkout')) && env('PADDLE_CHECKOUT_SESSION') == 1;
+        return filled(session('course-checkout')) && env('PADDLE_CHECKOUT_SESSION') == 1;
     }
 
     protected function fromSession()
     {
-        return session('website-checkout');
+        return session('course-checkout');
     }
 
     protected function toSession()
     {
-        session(['website-checkout' => $this]);
+        session(['course-checkout' => $this]);
     }
 
     /**
@@ -242,8 +241,8 @@ class WebsiteCheckout
          * To avoid back navigations to resubmit the page as a full payment
          * we need to clean the session.
          */
-        session()->forget('website-checkout');
-        session()->forget('website-paylink');
+        session()->forget('course-checkout');
+        session()->forget('course-paylink');
 
         return $link['url'];
     }

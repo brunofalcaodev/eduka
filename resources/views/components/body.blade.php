@@ -1,0 +1,3 @@
+<body {{ $attributes }}>
+	{{ $slot }}
+</body>

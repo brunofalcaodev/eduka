@@ -4,11 +4,13 @@ namespace Eduka\Models;
 
 use Eduka\Notifications\SendSMSNotification;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Notification;
 
 class PaddleLog extends Model
 {
+    use SoftDeletes;
     use Notifiable;
 
     protected $fillable = [
