@@ -6,14 +6,17 @@ use Eduka\Commands\Install;
 use Eduka\Facades\CourseCheckout;
 use Eduka\Models\Affiliate;
 use Eduka\Models\Chapter;
+use Eduka\Models\Course;
 use Eduka\Models\Link;
 use Eduka\Models\User;
 use Eduka\Models\Video;
 use Eduka\Observers\ChapterObserver;
+use Eduka\Observers\CourseObserver;
 use Eduka\Observers\LinkObserver;
 use Eduka\Observers\UserObserver;
 use Eduka\Observers\VideoObserver;
 use Eduka\Policies\ChapterPolicy;
+use Eduka\Policies\CoursePolicy;
 use Eduka\Policies\LinkPolicy;
 use Eduka\Policies\UserPolicy;
 use Eduka\Policies\VideoPolicy;
@@ -76,9 +79,9 @@ class EdukaServiceProvider extends ServiceProvider
                               '/../routes/'.
                               env('APP_ENV').
                               '.php';
-                 if (file_exists($envRoutesFile)) {
-                     include $envRoutesFile;
-                 }
+                if (file_exists($envRoutesFile)) {
+                    include $envRoutesFile;
+                }
              });
     }
 
@@ -99,6 +102,7 @@ class EdukaServiceProvider extends ServiceProvider
         Video::observe(VideoObserver::class);
         Chapter::observe(ChapterObserver::class);
         Link::observe(LinkObserver::class);
+        Course::observe(CourseObserver::class);
     }
 
     protected function registerPolicies(): void
@@ -107,6 +111,7 @@ class EdukaServiceProvider extends ServiceProvider
         Gate::policy(Chapter::class, ChapterPolicy::class);
         Gate::policy(Link::class, LinkPolicy::class);
         Gate::policy(Video::class, VideoPolicy::class);
+        Gate::policy(Course::class, CoursePolicy::class);
     }
 
     protected function registerCommands(): void

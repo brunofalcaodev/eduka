@@ -118,10 +118,6 @@ final class Install extends Command
             delete_all($filename);
         }
 
-        foreach (glob(database_path('migrations/*create_users*.php')) as $filename) {
-            delete_all($filename);
-        }
-
         foreach (glob(database_path('migrations/*create_media_table*.php')) as $filename) {
             delete_all($filename);
         }
