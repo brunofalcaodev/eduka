@@ -34,6 +34,8 @@ final class Install extends Command
 
         $this->deleteNativeLaravelFiles();
 
+        $this->replaceJsonDataTypesToLongText();
+
         $this->migrateFresh();
 
         $this->deleteStorageDirectories();
@@ -55,6 +57,20 @@ final class Install extends Command
         $this->paragraph('-= All done! Now install your course package to start using Eduka! =-', false);
 
         return Command::SUCCESS;
+    }
+
+    protected function replaceJsonDataTypesToLongText()
+    {
+        $this->paragraph('=> Replacing json migration datatypes by longTexts (for maria db compatibility)...', false);
+
+        // Delete previous create_media_file migrations.
+        foreach (glob(database_path('migrations/*.php')) as $filename) {
+            $file = file_get_contents($filename);
+
+            $data = str_replace('->json(', '->longText(', $file);
+
+            file_put_contents($filename, $data);
+        }
     }
 
     protected function preChecks()
