@@ -4,14 +4,9 @@ namespace Eduka\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Image\Manipulations;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Course extends Model implements HasMedia
+class Course extends Model
 {
-    use InteractsWithMedia;
     use SoftDeletes;
 
     protected $guarded = [];
@@ -24,30 +19,20 @@ class Course extends Model implements HasMedia
         'launched_at' => 'datetime',
     ];
 
-    public function registerMediaConversions(Media $media = null): void
+    protected $appends = [
+        'url',
+        'from',
+    ];
+
+    public function getUrlAttribute()
     {
-        /* Image conversion for the website hero images */
-        $this->addMediaConversion('featured')
-             ->fit(Manipulations::FIT_CONTAIN, 769, 577);
-
-        /* Image conversion for the website hero images */
-        $this->addMediaConversion('featured@2x')
-             ->fit(Manipulations::FIT_CONTAIN, 1538, 1154);
-
-        /* Image conversion for social media (facebook, twitter) */
-        $this->addMediaConversion('social')
-             ->performOnCollections('social')
-             ->fit(Manipulations::FIT_CONTAIN, 1200, 600);
-
-        /* Image conversion for the Nova backoffice thumbs */
-        $this->addMediaConversion('thumb')
-             ->fit(Manipulations::FIT_CROP, 450, 337);
+        return env('APP_URL');
     }
 
-    public function registerMediaCollections(): void
+    public function getFromAttribute()
     {
-        // Course social image for facebook and twitter.
-        $this->addMediaCollection('social')
-             ->singleFile();
+        return [
+            'name' => env('EDUKA_ADMIN_NAME'),
+            'email' => env('EDUKA_ADMIN_EMAIL'), ];
     }
 }

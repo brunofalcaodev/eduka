@@ -79,9 +79,9 @@ class EdukaServiceProvider extends ServiceProvider
                               '/../routes/'.
                               env('APP_ENV').
                               '.php';
-                if (file_exists($envRoutesFile)) {
-                    include $envRoutesFile;
-                }
+                 if (file_exists($envRoutesFile)) {
+                     include $envRoutesFile;
+                 }
              });
     }
 

@@ -8,21 +8,21 @@ class CourseObserver
 {
     public function saving(Course $course)
     {
-        if ($course->isDirty('meta_tags') && !is_null($course->meta_tags) || is_null($course->meta_tags)) {
+        if ($course->isDirty('meta_tags') && ! is_null($course->meta_tags) || is_null($course->meta_tags)) {
             $course->meta_tags = [
-            // Miscellaneous
-            'theme-color' => '',
+                // Miscellaneous
+                'theme-color' => '',
 
-            // Twitter
-            'twitter:title' => '',
-            'twitter:site' => '',
-            'twitter:description' => '',
-            'twitter:creator' => '',
+                // Twitter
+                'twitter:title' => '',
+                'twitter:site' => '',
+                'twitter:description' => '',
+                'twitter:creator' => '',
 
-            // Opengraph
-            'og:url' => '',
-            'og:description' => '',
-            'og:title' => '',
+                // Opengraph
+                'og:url' => '',
+                'og:description' => '',
+                'og:title' => '',
             ];
         }
     }

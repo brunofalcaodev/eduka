@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Nova;
+namespace MasteringNova\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Gravatar;
