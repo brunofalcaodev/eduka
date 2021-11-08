@@ -37,7 +37,7 @@ class DefaultMail extends Mailable implements ShouldQueue
             env('EDUKA_ADMIN_NAME').' from '.course()->name
         )->subject($this->subject)
          ->markdown($this->markdownPath, [
-            'data' => $this->data,
-        ]);
+             'data' => $this->data,
+         ]);
     }
 }
